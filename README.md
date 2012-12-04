@@ -9,7 +9,6 @@ npm install -g jasmine-node
 
 Instructions:
 1) Jasmine BDD Testing
-  + keep your specification files in the folder spec and name them *.spec.js
-  + run-tests.js needs one argument - the folder where your specs are in
-  + e.g. in cloud-9 ide: when you see run-tests.js in the editor, type into the console: run spec 
+  + keep your specification files in the folder spec, name them *.spec.js (by convention)
+  + in the console, type: jasmin-node spec
 
