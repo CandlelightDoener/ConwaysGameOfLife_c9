@@ -15,6 +15,7 @@
             <h1>
                 Conways Game of Life
             </h1>
+            <button onclick="evolveAndDraw()">evolve</button>
             <canvas
                 id="world"
                 width="500"
@@ -29,8 +30,13 @@
             world.createRandomStartingPopulation();
             drawPopulation(world.getLatestPopulation(), 'world');
             
-            world.evolve();
-            drawPopulation(world.getLatestPopulation(), 'world');
+            var generation = 1;
+            
+            function evolveAndDraw() {
+                console.log('evolving generation ' + generation);
+                world.evolve(generation++);
+                drawPopulation(world.getLatestPopulation(), 'world');
+            }
             
         </script>
     </body>
