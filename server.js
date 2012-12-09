@@ -1,6 +1,6 @@
 var express = require('express');
 var app = express();
-
+                    
 function home(req, res) {
     res.redirect('/index.html');
 }

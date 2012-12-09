@@ -10,5 +10,5 @@ npm install -g jasmine-node
 Instructions:
 1) Jasmine BDD Testing
   + keep your specification files in the folder spec, name them *.spec.js (by convention)
-  + in the console, type: jasmin-node spec
+  + in the console, type: jasmine-node spec
 
