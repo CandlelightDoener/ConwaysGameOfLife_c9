@@ -33,14 +33,14 @@ Cell.prototype.evolve = function() {
 
 //------------------------------------------------------------------------------
 
-function World(height, width) {
+function World(width, height) {
     this.height = height;
     this.width = width;
     
-    this.cells = [height];
-    for(var i=0; i < height; i++) {
-        this.cells[i] = [width];
-        for(var j=0; j < width; j++) {
+    this.cells = [width];
+    for(var i=0; i < width; i++) {
+        this.cells[i] = [height];
+        for(var j=0; j < height; j++) {
             this.cells[i][j] = new Cell(false);
         }
     }
@@ -84,16 +84,16 @@ World.prototype.evolve = function() {
 };
 
 World.prototype.updateNeighbours = function() {
-    for(var i=0; i < this.height; i++) {
-        for(var j=0; j < this.width; j++) {
+    for(var i=0; i < this.width; i++) {
+        for(var j=0; j < this.height; j++) {
             this.updateCellNeighbours(i, j);
         }
     }
 };
 
 World.prototype.evolveCells = function() {
-    for(var i=0; i < this.height; i++) {
-        for(var j=0; j < this.width; j++) {
+    for(var i=0; i < this.width; i++) {
+        for(var j=0; j < this.height; j++) {
             this.cells[i][j].evolve();
         }
     }
@@ -102,11 +102,24 @@ World.prototype.evolveCells = function() {
 World.prototype.updateCellNeighbours = function(x, y) {
     var aliveNeighbourCount = 0;
     
-    for(var i=x-1; i <= x+1; i++)
-        for(var j=y-1; j <= y+1; j++)
-            if(i != x || j != y)
-                if(this.cells[(i+this.height)%this.height][(j+this.width)%this.width].isAlive())
-                    aliveNeighbourCount++;
+    aliveNeighbourCount += this.addOneIfAlive(x-1, y-1);
+    aliveNeighbourCount += this.addOneIfAlive(x,   y-1);
+    aliveNeighbourCount += this.addOneIfAlive(x+1, y-1);
+    aliveNeighbourCount += this.addOneIfAlive(x-1, y  );
+    aliveNeighbourCount += this.addOneIfAlive(x+1, y  );
+    aliveNeighbourCount += this.addOneIfAlive(x-1, y+1);
+    aliveNeighbourCount += this.addOneIfAlive(x,   y+1);
+    aliveNeighbourCount += this.addOneIfAlive(x+1, y+1);
     
     this.cells[x][y].setNumberOfLivingNeighbours(aliveNeighbourCount);
 };
+
+World.prototype.addOneIfAlive = function(x, y) {
+    var wrappedX = (x + this.width) % this.width;
+    var wrappedY = (y + this.height) % this.height;
+    
+    if(this.cells[wrappedX][wrappedY].isAlive())
+        return 1;
+        
+    return 0;
+}
