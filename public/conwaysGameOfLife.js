@@ -47,11 +47,15 @@ function World(width, height) {
 }
 
 World.prototype.createStartingPopulation = function() {
-    this.createOscillatingCrossAt(this.width - 3, 3);
-    this.createRandomCluster(0, 10, 0, 10, 0.5);
+    this.createOscillatingCrossAt(this.width  * 2/3, this.height / 3);
+    this.createGliderAt(this.width / 4, 2);
+    this.createRandomClusterAt(this.width / 2, this.height / 2, 20, 20, 0.5);
 };
 
 World.prototype.createGliderAt = function(a, b) {
+    a = Math.floor(a);
+    b = Math.floor(b);
+    
     this.cells[a][b].letLive();
     this.cells[a+1][b].letLive();
     this.cells[a+2][b].letLive();
@@ -60,19 +64,25 @@ World.prototype.createGliderAt = function(a, b) {
 };
 
 World.prototype.createOscillatingCrossAt = function(a, b) {
-    this.cells[a][b].letLive();
-    this.cells[a-1][b].letLive();
-    this.cells[a+1][b].letLive();
-    this.cells[a][b-1].letLive();
+    a = Math.floor(a);
+    b = Math.floor(b);
+    
     this.cells[a][b+1].letLive();
+    this.cells[a+1][b+1].letLive();
+    this.cells[a+2][b+1].letLive();
+    this.cells[a+1][b].letLive();
+    this.cells[a+1][b+2].letLive();
 };
 
-World.prototype.createRandomCluster = function(xLeft, xRight, yLow, yHigh, densityBetweenZeroAndOne) {
-
+World.prototype.createRandomClusterAt = function(x, y, xStretch, yStretch, densityBetweenZeroAndOne) {
+    x = Math.floor(x);
+    y = Math.floor(y);
     var threshold = 1 - densityBetweenZeroAndOne;
+    var xEnd = Math.min(x + xStretch, this.width);
+    var yEnd = Math.min(y + yStretch, this.height);
 
-    for(var i=xLeft; i<xRight; i++)
-        for(var j=yLow; j<yHigh; j++)
+    for(var i=x; i<xEnd; i++)
+        for(var j=y; j<yEnd; j++)
             if(Math.random() > threshold)
                 this.cells[i][j].letLive();
 };

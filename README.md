@@ -1,7 +1,8 @@
 ConwaysGameOfLife_c9
 ====================
 
-Conways game of life on cloud9 ide with (node) js and html5
+Conways game of life on cloud9 ide with (node) js and html5.
+Algorithm for cell evolution is slow but well..
 
 Install:
 npm install express
@@ -11,4 +12,5 @@ Instructions:
 1) Jasmine BDD Testing
   + keep your specification files in the folder spec, name them *.spec.js (by convention)
   + in the console, type: jasmine-node spec
+  + currently, there's no tests...
 

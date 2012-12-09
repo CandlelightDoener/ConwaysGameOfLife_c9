@@ -7,7 +7,6 @@ function stretchCanvasToSize(width, height, canvasId) {
     context.canvas.width = width;
     context.canvas.height = height;
 }
-    
 
 function drawPopulation(population, canvasId) {
     var canvas = document.getElementById(canvasId);
@@ -17,7 +16,7 @@ function drawPopulation(population, canvasId) {
     for(var i=0; i<population.length; i++) {
         for(var j=0; j<population[i].length; j++) {
             if(population[i][j].isAlive()) {
-                paintLivingSquare(context, i*pixelPerField, j*pixelPerField);
+                paintLivingCell(context, i*pixelPerField, j*pixelPerField);
             } else {
                 paintDeadCell(context, i*pixelPerField, j*pixelPerField);
             }
@@ -25,25 +24,17 @@ function drawPopulation(population, canvasId) {
     }
 }
 
-function paintLivingSquare(context, x, y) {
-    context.fillStyle = '#8ED6FF';
-    context.strokeStyle = 'blue';
-    context.fillRect(x-radiusOfField, y-radiusOfField, 2*radiusOfField, 2*radiusOfField);
-    context.strokeRect(x-radiusOfField, y-radiusOfField, 2*radiusOfField, 2*radiusOfField);
-}
-
 function paintLivingCell(context, x, y) {
-    context.beginPath();
-    context.arc(x, y, radiusOfField - 1, 0, 2*Math.PI);
+    //context.fillStyle = '#8ED6FF';
+    context.fillStyle = "rgba(142, 214, 255, 0.5)";
     context.strokeStyle = 'blue';
-    context.stroke();
-    context.fillStyle = '#8ED6FF';
-    context.fill();
+    context.fillRect(x, y, pixelPerField, pixelPerField);
+    context.strokeRect(x, y, pixelPerField, pixelPerField);
 }
 
 function paintDeadCell(context, x, y) {
     context.beginPath();
-    context.arc(x, y, 1, 0, 2*Math.PI);
-    context.strokeStyle = 'orange';
+    context.arc(x + radiusOfField, y + radiusOfField, 1, 0, 2*Math.PI);
+    context.strokeStyle = "rgba(255, 204, 0, 0.2)";
     context.stroke();
 }
