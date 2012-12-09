@@ -3,6 +3,7 @@
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" href="style.css" />
         <title>Conways Game of Life</title>
         
         <script src="conwaysGameOfLife.js"></script>
@@ -17,8 +18,6 @@
             </h1>
             <canvas
                 id="world"
-                width="1010"
-                height="510"
                 style="border:1px solid #000000;">
                 Canvas wird vom Browser nicht unterstützt        
             </canvas>
@@ -26,7 +25,13 @@
         </div>
 		
         <script>
-            var world = new World(100, 50);
+            stretchCanvasToSize(window.innerWidth, window.innerHeight, 'world');
+            
+            var fieldsX = Math.floor(window.innerWidth / pixelPerField);
+            var fieldsY = Math.floor(window.innerHeight / pixelPerField);
+            
+            var world = new World(fieldsX, fieldsY);
+            
             world.createStartingPopulation();
             drawPopulation(world.getLatestPopulation(), 'world');
             

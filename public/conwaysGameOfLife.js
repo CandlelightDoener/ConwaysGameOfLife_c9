@@ -47,7 +47,8 @@ function World(width, height) {
 }
 
 World.prototype.createStartingPopulation = function() {
-    this.createOscillatingCrossAt(47,20);
+    this.createOscillatingCrossAt(this.width - 3, 3);
+    this.createRandomCluster(0, 10, 0, 10, 0.5);
 };
 
 World.prototype.createGliderAt = function(a, b) {
@@ -66,11 +67,13 @@ World.prototype.createOscillatingCrossAt = function(a, b) {
     this.cells[a][b+1].letLive();
 };
 
-World.prototype.createRandomCluster = function() {
+World.prototype.createRandomCluster = function(xLeft, xRight, yLow, yHigh, densityBetweenZeroAndOne) {
 
-    for(var i=22; i<28; i++)
-        for(var j=22; j<28; j++)
-            if(Math.random() > 0.5)
+    var threshold = 1 - densityBetweenZeroAndOne;
+
+    for(var i=xLeft; i<xRight; i++)
+        for(var j=yLow; j<yHigh; j++)
+            if(Math.random() > threshold)
                 this.cells[i][j].letLive();
 };
 
