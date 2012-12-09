@@ -9,8 +9,11 @@ function World() {
 }
 
 World.prototype.createRandomStartingPopulation = function() {
-    this.cells[10][20] = true;
-    this.cells[10][21] = true
+    
+    for(var i=22; i<28; i++)
+        for(var j=22; j<28; j++)
+            if(Math.random() > 0.5)
+                this.cells[i][j] = true;
 }
 
 World.prototype.getCells = function() {
