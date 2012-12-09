@@ -1,0 +1,25 @@
+{
+  "author": "candlelightdoener",
+  "name": "conways game of life",
+  "description": "Conways Game of Life",
+  "private": false,
+  "version": "0.1",
+  "homepage": "https://github.com/CandlelightDoener/ConwaysGameOfLife_c9",
+  "maintainers": [{
+    "name": "Seb"
+  }],
+  "main": "./src/matchers.js",
+  "scripts": {
+    "test": "jasmine-node --runWithRequireJs test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:CandlelightDoener/ConwaysGameOfLife_c9.git"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "express": "3.0.3",
+    "jasmine-node": "~2.0.0",
+    "requirejs": "~2.1.1"
+  }
+}
