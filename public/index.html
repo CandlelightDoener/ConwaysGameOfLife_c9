@@ -18,8 +18,8 @@
             <button onclick="evolveAndDraw()">evolve</button>
             <canvas
                 id="world"
-                width="500"
-                height="500"
+                width="350"
+                height="350"
                 style="border:1px solid #000000;">
                 Canvas wird vom Browser nicht unterstützt        
             </canvas>
@@ -30,11 +30,9 @@
             world.createRandomStartingPopulation();
             drawPopulation(world.getLatestPopulation(), 'world');
             
-            var generation = 1;
-            
             function evolveAndDraw() {
-                console.log('evolving generation ' + generation);
-                world.evolve(generation++);
+                console.log('evolving generation ');
+                world.evolve();
                 drawPopulation(world.getLatestPopulation(), 'world');
             }
             

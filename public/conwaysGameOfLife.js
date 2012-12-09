@@ -1,35 +1,32 @@
 function Cell(alive) {
     this.alive = alive;
-    this.lastStatusChangeInGeneration = 0;
+    this.numberOfLivingNeighbours = 0;
 }
 
-Cell.prototype.letLive = function(generation) {
+Cell.prototype.letLive = function() {
     this.alive = true;
-    this.lastStatusChangeInGeneration = generation;
 }
 
-Cell.prototype.letDie = function(generation) {
+Cell.prototype.letDie = function() {
     this.alive = false;
-    this.lastStatusChangeInGeneration = generation;
-}
-
-Cell.prototype.wasAliveBeforeGeneration = function(generation) {
-    if(this.alive)
-        return this.lastStatusChangeInGeneration < generation;
 }
 
 Cell.prototype.isAlive = function() {
     return this.alive;
 }
 
-Cell.prototype.evolve = function(neighbourCount, generation) {
+Cell.prototype.setNumberOfLivingNeighbours = function(numberOfLivingNeighbours) {
+    this.numberOfLivingNeighbours = numberOfLivingNeighbours;
+}
+
+Cell.prototype.evolve = function() {
     if(this.isAlive()) {
-        if(neighbourCount < 2 || neighbourCount > 3) {
-            this.letDie(generation);
+        if(this.numberOfLivingNeighbours < 2 || this.numberOfLivingNeighbours > 3) {
+            this.letDie();
         }
     } else {
-        if(neighbourCount == 3) {
-            this.letLive(generation);
+        if(this.numberOfLivingNeighbours === 3) {
+            this.letLive();
         }
     }
 }
@@ -48,39 +45,54 @@ function World() {
 
 World.prototype.createRandomStartingPopulation = function() {
     
-    var generationZero = 0;
-    
-    this.cells[0][0].letLive(generationZero);
-    this.cells[0][1].letLive(generationZero);
-    this.cells[1][0].letLive(generationZero);
-    this.cells[1][1].letLive(generationZero);
-    
+    var a=20, b=20;
+    this.cells[a][b].letLive();
+    this.cells[a-1][b].letLive();
+    this.cells[a+1][b].letLive();
+    this.cells[a][b-1].letLive();
+    this.cells[a][b+1].letLive();
+
+/*
     for(var i=22; i<28; i++)
         for(var j=22; j<28; j++)
             if(Math.random() > 0.5)
-                this.cells[i][j].letLive(generationZero);
+                this.cells[i][j].letLive();
+*/
 }
 
 World.prototype.getLatestPopulation = function() {
     return this.cells;
 }
 
-World.prototype.evolve = function(generation) {
+World.prototype.evolve = function() {
+    this.updateNeighbours();
+    this.evolveCells();
+}
+
+World.prototype.updateNeighbours = function() {
     for(var i=0; i < 50; i++) {
         for(var j=0; j < 50; j++) {
-            this.evolveCell(i, j, generation);
+            this.updateCellNeighbours(i, j);
         }
     }
 }
 
-World.prototype.evolveCell = function(x, y, generation) {
-    var neighbourCount = 0;
+World.prototype.evolveCells = function() {
+    for(var i=0; i < 50; i++) {
+        for(var j=0; j < 50; j++) {
+            this.cells[i][j].evolve();
+        }
+    }
+}
+
+World.prototype.updateCellNeighbours = function(x, y) {
+    var aliveNeighbourCount = 0;
     
-    for(var i=Math.max(0, x-1); i < Math.min(50, x+1); i++)
-        for(var j=Math.max(0, y-1); j < Math.min(50, y+1); j++)
+    for(var i=Math.max(0, x-1); i < Math.min(50, x+2); i++)
+        for(var j=Math.max(0, y-1); j < Math.min(50, y+2); j++)
             if(i != x || j != y)
-                if(this.cells[i][j].wasAliveBeforeGeneration(generation))
-                    neighbourCount++;
+                if(this.cells[i][j].isAlive())
+                    aliveNeighbourCount++;
     
-    this.cells[x][y].evolve(neighbourCount, generation);
+    this.cells[x][y].setNumberOfLivingNeighbours(aliveNeighbourCount);
 }
