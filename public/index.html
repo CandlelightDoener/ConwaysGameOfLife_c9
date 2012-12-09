@@ -3,20 +3,41 @@
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <title>On the road app</title>
+        <title>Conways Game of Life</title>
     </head>
     <body>
- 		
-        <!-- Page with animals -->
-        <div data-role="page" id="two" data-theme="a">
-            <div data-theme="b" data-role="header">
-                <h3>
-                    Conways Game of Life
-                </h3>
-            </div>
+    
+        <!-- Main Page -->
+        <div id="main-page">
+            <h1>
+                Conways Game of Life
+            </h1>
+            <canvas
+                id="world"
+                width="500"
+                height="500"
+                style="border:1px solid #000000;">
+                Canvas wird vom Browser nicht unterstützt        
+            </canvas>
         </div>
 		
         <script>
+            paintCircle(150, 100);
+            paintCircle(160, 100);
+            paintCircle(160, 110);
+            paintCircle(150, 110);
+        
+            // Paints a Circle into the World
+            function paintCircle(x, y) {
+                var world = document.getElementById("world");
+                var kontext = world.getContext("2d");
+                kontext.beginPath();
+                kontext.arc(x, y, 3.5, 0, 2*Math.PI);
+                kontext.strokeStyle = 'blue';
+                kontext.stroke();
+                kontext.fillStyle = '#8ED6FF';
+                kontext.fill();
+            }
         </script>
     </body>
 </html>
