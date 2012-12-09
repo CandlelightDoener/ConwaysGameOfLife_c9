@@ -17,8 +17,8 @@
             </h1>
             <canvas
                 id="world"
-                width="350"
-                height="350"
+                width="500"
+                height="500"
                 style="border:1px solid #000000;">
                 Canvas wird vom Browser nicht unterstützt        
             </canvas>
@@ -27,12 +27,12 @@
 		
         <script>
             var world = new World();
-            world.createRandomStartingPopulation();
+            world.createStartingPopulation();
             drawPopulation(world.getLatestPopulation(), 'world');
             
             window.setInterval(function(){
                 evolveAndDraw();
-            }, 500);
+            }, 300);
 
 
             function evolveAndDraw() {

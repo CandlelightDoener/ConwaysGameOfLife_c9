@@ -43,21 +43,32 @@ function World() {
     }
 }
 
-World.prototype.createRandomStartingPopulation = function() {
-    
-    var a=20, b=20;
+World.prototype.createStartingPopulation = function() {
+    this.createOscillatingCrossAt(47,20);
+}
+
+World.prototype.createGliderAt = function(a, b) {
+    this.cells[a][b].letLive();
+    this.cells[a+1][b].letLive();
+    this.cells[a+2][b].letLive();
+    this.cells[a+2][b-1].letLive();
+    this.cells[a+1][b-2].letLive();
+}
+
+World.prototype.createOscillatingCrossAt = function(a, b) {
     this.cells[a][b].letLive();
     this.cells[a-1][b].letLive();
     this.cells[a+1][b].letLive();
     this.cells[a][b-1].letLive();
     this.cells[a][b+1].letLive();
+}
 
-/*
+World.prototype.createRandomCluster = function() {
+
     for(var i=22; i<28; i++)
         for(var j=22; j<28; j++)
             if(Math.random() > 0.5)
                 this.cells[i][j].letLive();
-*/
 }
 
 World.prototype.getLatestPopulation = function() {
