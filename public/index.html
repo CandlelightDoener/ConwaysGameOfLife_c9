@@ -27,8 +27,10 @@
         <script>
             var world = new World();
             world.createRandomStartingPopulation();
+            drawPopulation(world.getLatestPopulation(), 'world');
             
-            drawPopulation(world.getCells(), 'world');
+            world.evolve();
+            drawPopulation(world.getLatestPopulation(), 'world');
             
         </script>
     </body>
