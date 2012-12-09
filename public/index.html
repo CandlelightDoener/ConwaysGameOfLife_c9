@@ -5,6 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <title>Conways Game of Life</title>
         
+        <script src="conwaysGameOfLife.js"></script>
         <script src="canvasPainter.js"></script>
     </head>
     <body>
@@ -24,6 +25,20 @@
         </div>
 		
         <script>
+            var world = new World();
+            world.createRandomStartingPopulation();
+            
+            var population = world.getCells();
+            
+            for(var i=0; i<population.length; i++) {
+                for(var j=0; j<population[i].length; j++) {
+                    if(population[i][j] === true) {
+                        paintCircle('world', i*10, j*10);
+                    }
+                    
+                }
+            }
+            
             paintCircle('world', 150, 100);
             paintCircle('world', 160, 100);
             paintCircle('world', 160, 110);
