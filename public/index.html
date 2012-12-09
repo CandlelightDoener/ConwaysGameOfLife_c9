@@ -4,6 +4,8 @@
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <title>Conways Game of Life</title>
+        
+        <script src="canvasPainter.js"></script>
     </head>
     <body>
     
@@ -26,18 +28,7 @@
             paintCircle(160, 100);
             paintCircle(160, 110);
             paintCircle(150, 110);
-        
-            // Paints a Circle into the World
-            function paintCircle(x, y) {
-                var world = document.getElementById("world");
-                var kontext = world.getContext("2d");
-                kontext.beginPath();
-                kontext.arc(x, y, 3.5, 0, 2*Math.PI);
-                kontext.strokeStyle = 'blue';
-                kontext.stroke();
-                kontext.fillStyle = '#8ED6FF';
-                kontext.fill();
-            }
+            paintCircle(160, 120);
         </script>
     </body>
 </html>
